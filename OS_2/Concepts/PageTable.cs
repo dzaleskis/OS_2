@@ -11,17 +11,11 @@ namespace OS_2.Concepts
         {
             get
             {
-                if (index < 0 || index >= pages.Length)
-                    throw new IndexOutOfRangeException("Index out of range");
-
                 return pages[index];
             }
 
             set
             {
-                if (index < 0 ||  index >= pages.Length)
-                    throw new IndexOutOfRangeException("Index out of range");
-
                 pages[index] = value;
             }
         }

@@ -9,15 +9,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="224e9bf7-facf-4f75-83a5-e9516601a94d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OS_2.sln" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OS_2/Concepts/PageTable.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OS_2/Machines/IMachine.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OS_2/Machines/RealMachine.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OS_2/Machines/VirtualMachine.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OS_2/Modules/MemoryManagementUnit.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OS_2/OS_2.csproj" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OS_2/Program.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OS_2.Tests/Modules/MemoryManagementUnitTests.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OS_2/Modules/Memory.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.OS_2/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.OS_2/.idea/contentModel.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.OS_2/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.OS_2/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OS_2.sln.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/OS_2.sln.DotSettings.user" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OS_2/Concepts/PageTable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/OS_2/Concepts/PageTable.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OS_2/Modules/MemoryManagementUnit.cs" beforeDir="false" afterPath="$PROJECT_DIR$/OS_2/Modules/MemoryManagementUnit.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,8 +36,11 @@
         <option value="$PROJECT_DIR$/OS_2.Tests/VMTests.cs" />
         <option value="$PROJECT_DIR$/OS_2/Machines/RealMachine.cs" />
         <option value="$PROJECT_DIR$/OS_2/Machines/IMachine.cs" />
-        <option value="$PROJECT_DIR$/OS_2/Modules/MemoryManagementUnit.cs" />
+        <option value="$PROJECT_DIR$/OS_2.Tests/Modules/MemoryManagementUnit.cs" />
         <option value="$PROJECT_DIR$/OS_2/Concepts/PageTable.cs" />
+        <option value="$PROJECT_DIR$/OS_2/Modules/MemoryManagementUnit.cs" />
+        <option value="$PROJECT_DIR$/OS_2.Tests/Modules/MemoryManagementUnitTests.cs" />
+        <option value="$PROJECT_DIR$/OS_2/Modules/Memory.cs" />
       </list>
     </option>
   </component>
@@ -81,7 +82,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1615133133134</updated>
-      <workItem from="1615133145856" duration="3620000" />
+      <workItem from="1615133145856" duration="7829000" />
     </task>
     <servers />
   </component>
@@ -104,5 +105,9 @@
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
     <state x="552" y="312" key="Rider.ProjectTemplateDialog.Size/0.0.1920.1160@0.0.1920.1160" timestamp="1615133181558" />
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1615139906658">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1615139906658" />
   </component>
 </project>
