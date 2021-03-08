@@ -9,13 +9,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="224e9bf7-facf-4f75-83a5-e9516601a94d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/OS_2.Tests/Modules/MemoryManagementUnitTests.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OS_2/Modules/Memory.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OS_2.Tests/Modules/PortsTests.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OS_2/Concepts/AbstractCycleDevice.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OS_2/Concepts/IPortDevice.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OS_2/IO/FloppyDrive.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OS_2/IO/Monitor.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OS_2/Modules/Ports.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OS_2/Utils/Constants.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.OS_2/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.OS_2/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.OS_2/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.OS_2/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OS_2.Tests/Modules/MemoryManagementUnitTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/OS_2.Tests/Modules/MemoryManagementUnitTests.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OS_2.Tests/OS_2.Tests.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/OS_2.Tests/OS_2.Tests.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OS_2.Tests/VMTests.cs" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/OS_2.sln.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/OS_2.sln.DotSettings.user" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OS_2/Concepts/PageTable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/OS_2/Concepts/PageTable.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OS_2/Machines/IMachine.cs" beforeDir="false" afterPath="$PROJECT_DIR$/OS_2/Machines/IMachine.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OS_2/Machines/RealMachine.cs" beforeDir="false" afterPath="$PROJECT_DIR$/OS_2/Machines/RealMachine.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OS_2/Machines/VirtualMachine.cs" beforeDir="false" afterPath="$PROJECT_DIR$/OS_2/Machines/VirtualMachine.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OS_2/Modules/Memory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/OS_2/Modules/Memory.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OS_2/Modules/MemoryManagementUnit.cs" beforeDir="false" afterPath="$PROJECT_DIR$/OS_2/Modules/MemoryManagementUnit.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OS_2/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/OS_2/Program.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,19 +40,33 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/OS_2/Program.cs" />
         <option value="$PROJECT_DIR$/OS_2/VirtualMachine/VirtualMachine.cs" />
         <option value="$PROJECT_DIR$/OS_2/RealMachine/RealMachine.cs" />
-        <option value="$PROJECT_DIR$/OS_2/Machines/VirtualMachine.cs" />
         <option value="$PROJECT_DIR$/OS_2.Tests/UnitTest1.cs" />
         <option value="$PROJECT_DIR$/OS_2.Tests/VMTests.cs" />
-        <option value="$PROJECT_DIR$/OS_2/Machines/RealMachine.cs" />
-        <option value="$PROJECT_DIR$/OS_2/Machines/IMachine.cs" />
         <option value="$PROJECT_DIR$/OS_2.Tests/Modules/MemoryManagementUnit.cs" />
         <option value="$PROJECT_DIR$/OS_2/Concepts/PageTable.cs" />
+        <option value="$PROJECT_DIR$/OS_2/IO/Screen.cs" />
+        <option value="$PROJECT_DIR$/OS_2/Machines/IMachine.cs" />
+        <option value="$PROJECT_DIR$/OS_2/Machines/VirtualMachine.cs" />
+        <option value="$PROJECT_DIR$/OS_2/Machines/RealMachine.cs" />
         <option value="$PROJECT_DIR$/OS_2/Modules/MemoryManagementUnit.cs" />
-        <option value="$PROJECT_DIR$/OS_2.Tests/Modules/MemoryManagementUnitTests.cs" />
         <option value="$PROJECT_DIR$/OS_2/Modules/Memory.cs" />
+        <option value="$PROJECT_DIR$/OS_2/IO/IOutputDevice.cs" />
+        <option value="$PROJECT_DIR$/OS_2/IO/IInputDevice.cs" />
+        <option value="$PROJECT_DIR$/OS_2/IO/IIODevice.cs" />
+        <option value="$PROJECT_DIR$/OS_2/IO/IODevice.cs" />
+        <option value="$PROJECT_DIR$/OS_2/IO/AbstractIODevice.cs" />
+        <option value="$PROJECT_DIR$/OS_2/Modules/PortDevice.cs" />
+        <option value="$PROJECT_DIR$/OS_2/Concepts/IPortDevice.cs" />
+        <option value="$PROJECT_DIR$/OS_2.Tests/Modules/MemoryManagementUnitTests.cs" />
+        <option value="$PROJECT_DIR$/OS_2.Tests/Modules/PortsTests.cs" />
+        <option value="$PROJECT_DIR$/OS_2/Modules/Ports.cs" />
+        <option value="$PROJECT_DIR$/OS_2/Utils/Constants.cs" />
+        <option value="$PROJECT_DIR$/OS_2/IO/FloppyDrive.cs" />
+        <option value="$PROJECT_DIR$/OS_2/Concepts/AbstractCycleDevice.cs" />
+        <option value="$PROJECT_DIR$/OS_2/Program.cs" />
+        <option value="$PROJECT_DIR$/OS_2/IO/Monitor.cs" />
       </list>
     </option>
   </component>
@@ -82,7 +108,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1615133133134</updated>
-      <workItem from="1615133145856" duration="7829000" />
+      <workItem from="1615133145856" duration="12257000" />
+      <workItem from="1615216602116" duration="7698000" />
     </task>
     <servers />
   </component>
@@ -96,15 +123,36 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
   </component>
   <component name="WindowStateProjectService">
+    <state width="1877" height="321" key="GridCell.Tab.0.bottom" timestamp="1615223559403">
+      <screen x="0" y="0" width="1920" height="1160" />
+    </state>
+    <state width="1877" height="321" key="GridCell.Tab.0.bottom/0.0.1920.1160@0.0.1920.1160" timestamp="1615223559403" />
+    <state width="1877" height="321" key="GridCell.Tab.0.center" timestamp="1615223559403">
+      <screen x="0" y="0" width="1920" height="1160" />
+    </state>
+    <state width="1877" height="321" key="GridCell.Tab.0.center/0.0.1920.1160@0.0.1920.1160" timestamp="1615223559403" />
+    <state width="1877" height="321" key="GridCell.Tab.0.left" timestamp="1615223559403">
+      <screen x="0" y="0" width="1920" height="1160" />
+    </state>
+    <state width="1877" height="321" key="GridCell.Tab.0.left/0.0.1920.1160@0.0.1920.1160" timestamp="1615223559403" />
+    <state width="1877" height="321" key="GridCell.Tab.0.right" timestamp="1615223559403">
+      <screen x="0" y="0" width="1920" height="1160" />
+    </state>
+    <state width="1877" height="321" key="GridCell.Tab.0.right/0.0.1920.1160@0.0.1920.1160" timestamp="1615223559403" />
     <state x="552" y="312" key="Rider.ProjectTemplateDialog.Size" timestamp="1615133181558">
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
     <state x="552" y="312" key="Rider.ProjectTemplateDialog.Size/0.0.1920.1160@0.0.1920.1160" timestamp="1615133181558" />
+    <state x="794" y="281" key="RiderGenerateDialog" timestamp="1615222047107">
+      <screen x="0" y="0" width="1920" height="1160" />
+    </state>
+    <state x="794" y="281" key="RiderGenerateDialog/0.0.1920.1160@0.0.1920.1160" timestamp="1615222047107" />
     <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1615139906658">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

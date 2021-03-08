@@ -1,12 +1,12 @@
 ﻿using System;
+using OS_2.Utils;
 
 namespace OS_2.Modules
 {
     public class Memory
     {
-        private const int MEMORY_SIZE = 65536;
-        
-        private byte[] mem = new byte[MEMORY_SIZE];
+
+        private byte[] mem = new byte[Constants.TOTAL_MEMORY_SIZE];
         
         public short this[ushort index]
         {
@@ -24,9 +24,9 @@ namespace OS_2.Modules
             }
         }
 
-        public void Clear()
+        public void Reset()
         {
-            mem = new byte[MEMORY_SIZE];
+            mem = new byte[Constants.TOTAL_MEMORY_SIZE];
         }
     }
 }

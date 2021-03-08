@@ -3,6 +3,7 @@
     public interface IMachine
     {
         public void ExecuteCycle();
-        
+
+        public void RequestInterrupt();
     }
 }

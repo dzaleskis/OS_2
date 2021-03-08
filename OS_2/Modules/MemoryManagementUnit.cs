@@ -1,5 +1,6 @@
 ﻿using System;
 using OS_2.Concepts;
+using OS_2.Utils;
 
 namespace OS_2.Modules
 {
@@ -9,8 +10,6 @@ namespace OS_2.Modules
         
         private readonly PageTable _pageTable;
 
-        private const ushort PAGE_SIZE_IN_BYTES = 512;
-
         public MemoryManagementUnit(Memory memory, PageTable pageTable)
         {
             _memory = memory;
@@ -19,8 +18,8 @@ namespace OS_2.Modules
 
         public ushort ConvertVirtualToReal(ushort virtualAddress)
         {
-            int pageIndex = virtualAddress / PAGE_SIZE_IN_BYTES;
-            ushort offset = (ushort) (virtualAddress % PAGE_SIZE_IN_BYTES);
+            int pageIndex = virtualAddress / Constants.PAGE_SIZE_IN_BYTES;
+            ushort offset = (ushort) (virtualAddress % Constants.PAGE_SIZE_IN_BYTES);
             ushort realPageAddress = _pageTable[pageIndex];
             
             // if address is empty, we imply it's not in page table

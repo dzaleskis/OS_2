@@ -31,7 +31,6 @@ namespace OS_2.Tests.Modules
         [Test]
         public void AccessesMemoryCorrectly1()
         {
-            memory.Clear();
             memory[512] = byte.MaxValue;
             pageTable[1] = 512;
             var result = unit.AccessMemory(512);
@@ -41,7 +40,6 @@ namespace OS_2.Tests.Modules
         [Test]
         public void AccessesMemoryCorrectly2()
         {
-            memory.Clear();
             memory[513] = short.MaxValue; // only FF will be read
             pageTable[1] = 512;
             var result = unit.AccessMemory(512);
@@ -53,6 +51,12 @@ namespace OS_2.Tests.Modules
         {
             pageTable[1] = 0;
             Assert.Throws<ArgumentException>(() => unit.AccessMemory(512));
+        }
+        
+        [TearDown]
+        public void Cleanup()
+        {
+            memory.Reset();
         }
     }
 }

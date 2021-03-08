@@ -6,5 +6,6 @@
     &lt;TestId&gt;NUnit3x::25633803-E0DD-47BC-ADA2-F6307B748F18::.NETCoreApp,Version=v3.1::OS_2.Tests.Modules.MemoryManagementUnitTests.MapsMemoryCorrectly2&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;NUnit3x::25633803-E0DD-47BC-ADA2-F6307B748F18::.NETCoreApp,Version=v3.1::OS_2.Tests.Modules.MemoryManagementUnitTests.ThrowsOnUnmappedPage&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;NUnit3x::25633803-E0DD-47BC-ADA2-F6307B748F18::.NETCoreApp,Version=v3.1::OS_2.Tests.Modules.MemoryManagementUnitTests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::25633803-E0DD-47BC-ADA2-F6307B748F18::.NETCoreApp,Version=v3.1::OS_2.Tests.Modules.PortsTests&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

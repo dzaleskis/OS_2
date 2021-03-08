@@ -16,7 +16,13 @@
       <e p="OS_2" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
         <e p="Concepts" t="Include">
+          <e p="AbstractCycleDevice.cs" t="Include" />
+          <e p="IPortDevice.cs" t="Include" />
           <e p="PageTable.cs" t="Include" />
+        </e>
+        <e p="IO" t="Include">
+          <e p="FloppyDrive.cs" t="Include" />
+          <e p="Monitor.cs" t="Include" />
         </e>
         <e p="Machines" t="Include">
           <e p="IMachine.cs" t="Include" />
@@ -26,6 +32,7 @@
         <e p="Modules" t="Include">
           <e p="Memory.cs" t="Include" />
           <e p="MemoryManagementUnit.cs" t="Include" />
+          <e p="Ports.cs" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
@@ -36,12 +43,16 @@
         </e>
         <e p="OS_2.csproj" t="IncludeRecursive" />
         <e p="Program.cs" t="Include" />
+        <e p="Utils" t="Include">
+          <e p="Constants.cs" t="Include" />
+        </e>
       </e>
       <e p="OS_2.sln" t="IncludeFlat" />
       <e p="OS_2.Tests" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
         <e p="Modules" t="Include">
           <e p="MemoryManagementUnitTests.cs" t="Include" />
+          <e p="PortsTests.cs" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
@@ -51,7 +62,6 @@
           </e>
         </e>
         <e p="OS_2.Tests.csproj" t="IncludeRecursive" />
-        <e p="VMTests.cs" t="Include" />
       </e>
       <e p="packages" t="ExcludeRecursive" />
     </e>

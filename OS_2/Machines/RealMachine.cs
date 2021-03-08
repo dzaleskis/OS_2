@@ -7,5 +7,10 @@
         {
             throw new System.NotImplementedException();
         }
+
+        public void RequestInterrupt()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
