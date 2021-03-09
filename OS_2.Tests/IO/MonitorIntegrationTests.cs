@@ -27,5 +27,11 @@ namespace OS_2.Tests.IO
 
             StringAssert.StartsWith(content, monitor.ComputeFrame());
         }
+
+        [TearDown]
+        public void Cleanup()
+        {
+            monitor.Dispose();
+        }
     }
 }

@@ -38,7 +38,7 @@ namespace OS_2.IO
             Console.Write(ComputeFrame());
         }
 
-        protected override void DoCycle(object stateInfo)
+        protected override void DoCycle()
         {
             Render();
         }

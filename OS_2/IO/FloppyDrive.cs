@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using OS_2.Concepts;
 using OS_2.Machines;
+using OS_2.Modules;
 
 namespace OS_2.IO
 {
@@ -30,16 +31,20 @@ namespace OS_2.IO
     public class FloppyDrive: AbstractCycleDevice, IPortDevice
     {
         private const int REGISTER_COUNT = 4;
-        private const int FIFO_INDEX = REGISTER_COUNT - 1;
         private const int BLOCK_SIZE = 32;
-        
-        private readonly byte[] _byteRegisters = new byte[REGISTER_COUNT - 1];
-        private readonly Queue<byte> _dataFifo = new Queue<byte>();
-        private readonly string _deviceFilename;
 
-        public FloppyDrive(string filename)
+        private byte _control;
+        private byte _error;
+        private byte _lba;
+        private readonly Queue<byte> _dataFifo = new Queue<byte>();
+        
+        private readonly string _driveFilename;
+        private readonly InterruptLine _interruptLine;
+
+        public FloppyDrive(string filename, IInterruptController controller)
         {
-            _deviceFilename = filename;
+            _driveFilename = filename;
+            _interruptLine = new InterruptLine(controller);
         }
         
         public int GetRequiredPorts()
@@ -49,37 +54,55 @@ namespace OS_2.IO
 
         public void WriteTo(int accessedIndex, byte value)
         {
-            if (accessedIndex != FIFO_INDEX)
+            switch (accessedIndex)
             {
-                _byteRegisters[accessedIndex] = value;
-            }
-            else
-            {
-                SetError(FloppyError.IncorrectAccess);
+                case (byte)FloppyRegister.Control:
+                    _control = value;
+                    break;
+                case (byte)FloppyRegister.DataFIFO:
+                    SetError(FloppyError.IncorrectAccess);
+                    break;
+                case (byte)FloppyRegister.Error:
+                    _error = value;
+                    break;
+                case (byte)FloppyRegister.LBA:
+                    _lba = value;
+                    break;
             }
         }
 
         public byte ReadFrom(int accessedIndex)
         {
-            if (accessedIndex != FIFO_INDEX)
+            switch (accessedIndex)
             {
-                return _byteRegisters[accessedIndex];
+                case (byte)FloppyRegister.Control:
+                    return _control;
+                
+                case (byte)FloppyRegister.DataFIFO:
+                    if (_dataFifo.Count == 0)
+                    {
+                        SetError(FloppyError.NothingToRead);
+                        break;
+                    }
+                    return _dataFifo.Dequeue();
+                
+                case (byte)FloppyRegister.Error:
+                    return _error;
+                
+                case (byte)FloppyRegister.LBA:
+                    return _lba;
             }
-
-            if (_dataFifo.Count != 0) return _dataFifo.Dequeue();
-            
-            SetError(FloppyError.NothingToRead);
             return 0;
         }
 
         private void SetError(FloppyError errorCode)
         {
-            _byteRegisters[(int) FloppyRegister.Error] = (byte) errorCode;
+            _error = (byte) errorCode;
         }
 
         private void ReadFromDisk(int index)
         {
-            var file = File.OpenRead(_deviceFilename);
+            var file = File.OpenRead(_driveFilename);
             file.Seek(index * BLOCK_SIZE, SeekOrigin.Begin);
 
             var readBuffer = new byte[BLOCK_SIZE];
@@ -93,16 +116,16 @@ namespace OS_2.IO
             file.Close();
         }
 
-        protected override void DoCycle(object stateInfo)
+        protected override void DoCycle()
         {
             // do on every cycle:
             // if control register is set to ReadData and queue is empty
             // read the data to fifo, reset control register, then trigger an interrupt
-            if (_byteRegisters[(int) FloppyRegister.Control] == (byte) FloppyControl.ReadData)
+            if (_control == (byte) FloppyControl.ReadData)
             {
-                ReadFromDisk(_byteRegisters[(int) FloppyRegister.LBA]);
-                _byteRegisters[(int) FloppyRegister.Control] = (byte) FloppyControl.NoAction;
-                // TODO: implement interrupt mechanism
+                ReadFromDisk(_lba);
+                _control = (byte) FloppyControl.NoAction;
+                _interruptLine.TriggerInterrupt();
             }
         }
     }

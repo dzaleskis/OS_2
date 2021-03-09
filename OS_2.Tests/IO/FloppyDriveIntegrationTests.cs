@@ -1,21 +1,26 @@
 ﻿using System;
 using System.IO;
 using System.Threading;
+using Moq;
 using NUnit.Framework;
 using OS_2.IO;
+using OS_2.Modules;
 
 namespace OS_2.Tests.IO
 {
     public class FloppyDriveIntegrationTests
     {
         private FloppyDrive floppyDrive;
+        private string filename = "test.txt";
+        private string content = "Hello World!";
+        private Mock<InterruptController> controllerMock;
+        
         [SetUp]
         public void Setup()
         {
-            var filename = "test.txt";
-            var content = "Hello World!";
             File.WriteAllText(filename, content);
-            floppyDrive = new FloppyDrive(filename);
+            controllerMock = new Mock<InterruptController>();
+            floppyDrive = new FloppyDrive(filename, controllerMock.Object);
         }
         
         [Test]
@@ -39,6 +44,7 @@ namespace OS_2.Tests.IO
         {
             floppyDrive.WriteTo((int) FloppyRegister.LBA, 0);
             floppyDrive.WriteTo((int) FloppyRegister.Control, (int) FloppyControl.ReadData);
+            floppyDrive.StartRunning();
             Thread.Sleep(200);
             
             Assert.That('H' == Convert.ToChar(floppyDrive.ReadFrom((int) FloppyRegister.DataFIFO)));
@@ -46,6 +52,15 @@ namespace OS_2.Tests.IO
             Assert.That('l' == Convert.ToChar(floppyDrive.ReadFrom((int) FloppyRegister.DataFIFO)));
             Assert.That('l' == Convert.ToChar(floppyDrive.ReadFrom((int) FloppyRegister.DataFIFO)));
             Assert.That('o' == Convert.ToChar(floppyDrive.ReadFrom((int) FloppyRegister.DataFIFO)));
+            
         }
+
+        [TearDown]
+        public void Cleanup()
+        {
+            File.Delete(filename);
+            floppyDrive.StopRunning();
+        }
+
     }
 }

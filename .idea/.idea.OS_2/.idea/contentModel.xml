@@ -17,6 +17,8 @@
         <e p="bin" t="ExcludeRecursive" />
         <e p="Concepts" t="Include">
           <e p="AbstractCycleDevice.cs" t="Include" />
+          <e p="IInterruptController.cs" t="Include" />
+          <e p="InterruptLine.cs" t="Include" />
           <e p="IPortDevice.cs" t="Include" />
           <e p="PageTable.cs" t="Include" />
         </e>
@@ -30,9 +32,11 @@
           <e p="VirtualMachine.cs" t="Include" />
         </e>
         <e p="Modules" t="Include">
+          <e p="InterruptController.cs" t="Include" />
           <e p="Memory.cs" t="Include" />
           <e p="MemoryManagementUnit.cs" t="Include" />
           <e p="Ports.cs" t="Include" />
+          <e p="Timer.cs" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
@@ -55,8 +59,10 @@
           <e p="MonitorIntegrationTests.cs" t="Include" />
         </e>
         <e p="Modules" t="Include">
+          <e p="InterruptControllerTests.cs" t="Include" />
           <e p="MemoryManagementUnitTests.cs" t="Include" />
           <e p="PortsTests.cs" t="Include" />
+          <e p="TimerTests.cs" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
