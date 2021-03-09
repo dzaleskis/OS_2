@@ -25,7 +25,7 @@ namespace OS_2.IO
             return memory[accessedIndex];
         }
 
-        private string ComputeFrame()
+        public string ComputeFrame()
         {
             return System.Text.Encoding.ASCII.GetString(memory, 0, memory.Length);
         }

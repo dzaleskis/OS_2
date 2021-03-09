@@ -9,25 +9,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="224e9bf7-facf-4f75-83a5-e9516601a94d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/OS_2.Tests/Modules/PortsTests.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OS_2/Concepts/AbstractCycleDevice.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OS_2/Concepts/IPortDevice.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OS_2/IO/FloppyDrive.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OS_2/IO/Monitor.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OS_2/Modules/Ports.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OS_2/Utils/Constants.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OS_2.Tests/IO/FloppyDriveIntegrationTests.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.OS_2/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.OS_2/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.OS_2/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.OS_2/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OS_2.Tests/Modules/MemoryManagementUnitTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/OS_2.Tests/Modules/MemoryManagementUnitTests.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OS_2.Tests/OS_2.Tests.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/OS_2.Tests/OS_2.Tests.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OS_2.Tests/VMTests.cs" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/OS_2.sln.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/OS_2.sln.DotSettings.user" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OS_2/Machines/IMachine.cs" beforeDir="false" afterPath="$PROJECT_DIR$/OS_2/Machines/IMachine.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OS_2/Machines/RealMachine.cs" beforeDir="false" afterPath="$PROJECT_DIR$/OS_2/Machines/RealMachine.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OS_2/Machines/VirtualMachine.cs" beforeDir="false" afterPath="$PROJECT_DIR$/OS_2/Machines/VirtualMachine.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OS_2/Modules/Memory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/OS_2/Modules/Memory.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OS_2/Modules/MemoryManagementUnit.cs" beforeDir="false" afterPath="$PROJECT_DIR$/OS_2/Modules/MemoryManagementUnit.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OS_2/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/OS_2/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OS_2/Concepts/AbstractCycleDevice.cs" beforeDir="false" afterPath="$PROJECT_DIR$/OS_2/Concepts/AbstractCycleDevice.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OS_2/IO/FloppyDrive.cs" beforeDir="false" afterPath="$PROJECT_DIR$/OS_2/IO/FloppyDrive.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OS_2/IO/Monitor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/OS_2/IO/Monitor.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,10 +51,12 @@
         <option value="$PROJECT_DIR$/OS_2.Tests/Modules/PortsTests.cs" />
         <option value="$PROJECT_DIR$/OS_2/Modules/Ports.cs" />
         <option value="$PROJECT_DIR$/OS_2/Utils/Constants.cs" />
-        <option value="$PROJECT_DIR$/OS_2/IO/FloppyDrive.cs" />
-        <option value="$PROJECT_DIR$/OS_2/Concepts/AbstractCycleDevice.cs" />
         <option value="$PROJECT_DIR$/OS_2/Program.cs" />
+        <option value="$PROJECT_DIR$/OS_2/Concepts/AbstractCycleDevice.cs" />
+        <option value="$PROJECT_DIR$/OS_2.Tests/IO/FloppyDriveIntegrationTests.cs" />
+        <option value="$PROJECT_DIR$/OS_2/IO/FloppyDrive.cs" />
         <option value="$PROJECT_DIR$/OS_2/IO/Monitor.cs" />
+        <option value="$PROJECT_DIR$/OS_2.Tests/IO/MonitorIntegrationTests.cs" />
       </list>
     </option>
   </component>
@@ -109,7 +99,8 @@
       <option name="presentableId" value="Default" />
       <updated>1615133133134</updated>
       <workItem from="1615133145856" duration="12257000" />
-      <workItem from="1615216602116" duration="7698000" />
+      <workItem from="1615216602116" duration="14905000" />
+      <workItem from="1615272842344" duration="5723000" />
     </task>
     <servers />
   </component>
@@ -129,22 +120,26 @@
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1877" height="321" key="GridCell.Tab.0.bottom" timestamp="1615223559403">
-      <screen x="0" y="0" width="1920" height="1160" />
+    <state width="1493" height="137" key="GridCell.Tab.0.bottom" timestamp="1615238311691">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1877" height="321" key="GridCell.Tab.0.bottom/0.0.1920.1160@0.0.1920.1160" timestamp="1615223559403" />
-    <state width="1877" height="321" key="GridCell.Tab.0.center" timestamp="1615223559403">
-      <screen x="0" y="0" width="1920" height="1160" />
+    <state width="1493" height="137" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1615238311691" />
+    <state width="1877" height="321" key="GridCell.Tab.0.bottom/0.0.1920.1160@0.0.1920.1160" timestamp="1615225794077" />
+    <state width="1493" height="137" key="GridCell.Tab.0.center" timestamp="1615238311691">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1877" height="321" key="GridCell.Tab.0.center/0.0.1920.1160@0.0.1920.1160" timestamp="1615223559403" />
-    <state width="1877" height="321" key="GridCell.Tab.0.left" timestamp="1615223559403">
-      <screen x="0" y="0" width="1920" height="1160" />
+    <state width="1493" height="137" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1615238311691" />
+    <state width="1877" height="321" key="GridCell.Tab.0.center/0.0.1920.1160@0.0.1920.1160" timestamp="1615225794077" />
+    <state width="1493" height="137" key="GridCell.Tab.0.left" timestamp="1615238311691">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1877" height="321" key="GridCell.Tab.0.left/0.0.1920.1160@0.0.1920.1160" timestamp="1615223559403" />
-    <state width="1877" height="321" key="GridCell.Tab.0.right" timestamp="1615223559403">
-      <screen x="0" y="0" width="1920" height="1160" />
+    <state width="1493" height="137" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1615238311691" />
+    <state width="1877" height="321" key="GridCell.Tab.0.left/0.0.1920.1160@0.0.1920.1160" timestamp="1615225794077" />
+    <state width="1493" height="137" key="GridCell.Tab.0.right" timestamp="1615238311691">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1877" height="321" key="GridCell.Tab.0.right/0.0.1920.1160@0.0.1920.1160" timestamp="1615223559403" />
+    <state width="1493" height="137" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1615238311691" />
+    <state width="1877" height="321" key="GridCell.Tab.0.right/0.0.1920.1160@0.0.1920.1160" timestamp="1615225794077" />
     <state x="552" y="312" key="Rider.ProjectTemplateDialog.Size" timestamp="1615133181558">
       <screen x="0" y="0" width="1920" height="1160" />
     </state>

@@ -5,18 +5,19 @@ namespace OS_2.Concepts
 {
     public abstract class AbstractCycleDevice
     {
-        protected int Timeout { get; set; } = 500;
+        protected int Timeout { get; set; } = 100;
         
         protected Timer Timer;
 
         protected AbstractCycleDevice()
         {
-            UpdateTimer();
+            Timer = new Timer(DoCycle, null, 0, Timeout);
         }
 
         protected void UpdateTimer()
         {
-            Timer = new Timer(DoCycle, null, 0, Timeout);
+            
+            Timer.Change(0, Timeout);
         }
         
         protected abstract void DoCycle(Object stateInfo);

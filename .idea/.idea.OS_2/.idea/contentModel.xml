@@ -50,6 +50,10 @@
       <e p="OS_2.sln" t="IncludeFlat" />
       <e p="OS_2.Tests" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
+        <e p="IO" t="Include">
+          <e p="FloppyDriveIntegrationTests.cs" t="Include" />
+          <e p="MonitorIntegrationTests.cs" t="Include" />
+        </e>
         <e p="Modules" t="Include">
           <e p="MemoryManagementUnitTests.cs" t="Include" />
           <e p="PortsTests.cs" t="Include" />
