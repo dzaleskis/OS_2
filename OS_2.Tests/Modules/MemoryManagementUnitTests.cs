@@ -1,7 +1,6 @@
 using System;
 using NUnit.Framework;
 using OS_2.Concepts;
-using OS_2.Machines;
 using OS_2.Modules;
 
 namespace OS_2.Tests.Modules
@@ -40,7 +39,7 @@ namespace OS_2.Tests.Modules
         [Test]
         public void AccessesMemoryCorrectly2()
         {
-            memory[513] = short.MaxValue; // only FF will be read
+            memory[513] = short.MaxValue; // only FF should be read
             pageTable[1] = 512;
             var result = unit.AccessMemory(512);
             Assert.That(result == -256); // FF00 should give -256 in two's complement

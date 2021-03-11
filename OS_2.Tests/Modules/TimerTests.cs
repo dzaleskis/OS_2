@@ -24,7 +24,7 @@ namespace OS_2.Tests.Modules
         public void DoesNotTriggerInterruptsByDefault()
         {
             Thread.Sleep(150);
-            controllerMock.Verify(m => m.HandleInterruptRequest(_timer._interruptLine), Times.Never());
+            controllerMock.Verify(m => m.HandleInterruptRequest(_timer.InterruptLine), Times.Never());
         }
         
         [Test]
@@ -32,7 +32,7 @@ namespace OS_2.Tests.Modules
         {
             _timer.WriteTo((int)TimerRegisters.EnableInterrupts, 1);
             Thread.Sleep(150);
-            controllerMock.Verify(m => m.HandleInterruptRequest(_timer._interruptLine), Times.AtLeastOnce());
+            controllerMock.Verify(m => m.HandleInterruptRequest(_timer.InterruptLine), Times.AtLeastOnce());
         }
 
         [TearDown]
