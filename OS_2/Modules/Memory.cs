@@ -1,14 +1,14 @@
 ﻿using System;
+using System.Linq;
 using OS_2.Utils;
 
 namespace OS_2.Modules
 {
     public class Memory
     {
-
         private byte[] mem = new byte[Constants.TOTAL_MEMORY_SIZE];
         
-        public short this[ushort index]
+        public int this[int index]
         {
             get
             {
@@ -19,7 +19,7 @@ namespace OS_2.Modules
 
             set
             {
-                var bytes = BitConverter.GetBytes(value);
+                var bytes = BitConverter.GetBytes((short)value);
                 bytes.CopyTo(mem, index);
             }
         }

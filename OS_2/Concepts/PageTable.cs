@@ -5,19 +5,13 @@ namespace OS_2.Concepts
     public class PageTable
     {
         // default value of int is 0, so if address is not in table, we return 0
-        private ushort[] pages = new ushort[128];
+        private int[] pages = new int[128];
         
-        public ushort this[int index]
+        public int this[int index]
         {
-            get
-            {
-                return pages[index];
-            }
+            get => pages[index];
 
-            set
-            {
-                pages[index] = value;
-            }
+            set => pages[index] = value;
         }
     }
 }

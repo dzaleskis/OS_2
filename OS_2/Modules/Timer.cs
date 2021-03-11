@@ -11,19 +11,19 @@ namespace OS_2.Modules
     public class Timer: AbstractCycleDevice, IPortDevice
     {
         private const int REGISTER_COUNT = 2;
-        public readonly InterruptLine _interruptLine;
-        private bool InterruptsEnabled = false;
+        public readonly InterruptLine InterruptLine;
+        private bool _interruptsEnabled = false;
         
         public Timer(IInterruptController controller)
         {
-            _interruptLine = new InterruptLine(controller);
+            InterruptLine = new InterruptLine(controller);
         }
 
         protected override void DoCycle()
         {
-            if (InterruptsEnabled)
+            if (_interruptsEnabled)
             {
-                _interruptLine.TriggerInterrupt();
+                InterruptLine.TriggerInterrupt();
             }
         }
 
@@ -37,11 +37,10 @@ namespace OS_2.Modules
             switch (accessedIndex)
             {
                 case (byte)TimerRegisters.EnableInterrupts:
-                    InterruptsEnabled = value > 0;
+                    _interruptsEnabled = value > 0;
                     break;
                 case (byte)TimerRegisters.Timeout:
-                    Timeout = value;
-                    UpdateTimer();
+                    UpdateTimer(value);
                     break;
             }
         }
@@ -51,7 +50,7 @@ namespace OS_2.Modules
             switch (accessedIndex)
             {
                 case (byte)TimerRegisters.EnableInterrupts:
-                    return (byte)(InterruptsEnabled ? 1 : 0);
+                    return (byte)(_interruptsEnabled ? 1 : 0);
                 case (byte)TimerRegisters.Timeout:
                     return (byte) Timeout;
             }

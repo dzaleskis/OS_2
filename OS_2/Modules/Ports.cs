@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using OS_2.Concepts;
-using OS_2.Utils;
 
 namespace OS_2.Modules
 {
@@ -31,7 +29,7 @@ namespace OS_2.Modules
             lastAllocatedPort += portDevice.GetRequiredPorts();
         }
 
-        public void WriteToPort(ushort port, byte value)
+        public void WriteToPort(int port, byte value)
         {
             var device = allocatedDevices
                 .Single(device => IsPortInDeviceRange(port, device));
@@ -39,7 +37,7 @@ namespace OS_2.Modules
             device.DeviceRef.WriteTo(port - device.StartPort, value);
         }
         
-        public byte ReadFromPort(ushort port)
+        public byte ReadFromPort(int port)
         {
             var device = allocatedDevices
                 .Single(device => IsPortInDeviceRange(port, device));
@@ -47,7 +45,7 @@ namespace OS_2.Modules
             return device.DeviceRef.ReadFrom(port - device.StartPort);
         }
 
-        private bool IsPortInDeviceRange(ushort port, AllocatedDevice device)
+        private bool IsPortInDeviceRange(int port, AllocatedDevice device)
         {
             var start = device.StartPort;
             var end = start + device.RequiredPorts;

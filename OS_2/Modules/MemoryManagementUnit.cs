@@ -16,23 +16,23 @@ namespace OS_2.Modules
             _pageTable = pageTable;
         }
 
-        public ushort ConvertVirtualToReal(ushort virtualAddress)
+        public int ConvertVirtualToReal(int virtualAddress)
         {
             int pageIndex = virtualAddress / Constants.PAGE_SIZE_IN_BYTES;
-            ushort offset = (ushort) (virtualAddress % Constants.PAGE_SIZE_IN_BYTES);
-            ushort realPageAddress = _pageTable[pageIndex];
+            int offset = virtualAddress % Constants.PAGE_SIZE_IN_BYTES;
+            int realPageAddress = _pageTable[pageIndex];
             
             // if address is empty, we imply it's not in page table
             if (realPageAddress == 0)
             {
                 throw new ArgumentException("Page not in table");
             }
-            return (ushort) (realPageAddress + offset);
+            return realPageAddress + offset;
         }
 
-        public short AccessMemory(ushort virtualAddress)
+        public int AccessMemory(int virtualAddress)
         {
-            ushort realAddress = ConvertVirtualToReal(virtualAddress);
+            int realAddress = ConvertVirtualToReal(virtualAddress);
             return _memory[realAddress];
         }
     }

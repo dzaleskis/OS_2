@@ -1,16 +1,11 @@
 ﻿namespace OS_2.Machines
 {
-    public class RealMachine: IMachine
+    public class RealMachine
     {
         
-        public void ExecuteCycle()
+        public RealMachine()
         {
-            throw new System.NotImplementedException();
-        }
-
-        public void RequestInterrupt()
-        {
-            throw new System.NotImplementedException();
+            // initialize all modules here
         }
     }
 }
