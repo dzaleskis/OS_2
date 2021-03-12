@@ -19,7 +19,7 @@ namespace OS_2.Modules
         public void HandleInterruptRequest(InterruptLine line)
         {
             var index = _interruptLines.IndexOf(line);
-            var bitToMark = Pow(2, index);
+            var bitToMark = (byte) (1 << index);
             _irq |= bitToMark;
         }
 

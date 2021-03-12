@@ -6,7 +6,9 @@ namespace OS_2.Concepts
     {
         HALT,
         ADD,
+        IADD,
         SUB,
+        ISUB,
         MUL,
         IMUL,
         DIV,
@@ -41,56 +43,28 @@ namespace OS_2.Concepts
     public enum ArithmeticOpcode
     {
         ADD = Opcode.ADD,
+        IADD = Opcode.IADD,
         SUB = Opcode.SUB,
+        ISUB = Opcode.ISUB,
         MUL = Opcode.MUL,
         IMUL = Opcode.IMUL,
         DIV = Opcode.DIV,
         IDIV = Opcode.IDIV
     }
-    
-    public enum LogicalOpcode
-    {
-        AND = Opcode.AND,
-        OR = Opcode.OR,
-        XOR = Opcode.XOR,
-        NOT = Opcode.NOT,
-    }
-    
-    public class Instruction
+
+
+    public class VoidInstruction
     {
         public Opcode Opcode { get; set; }
     }
 
-    public class Operand
+    public class UnaryInstruction : VoidInstruction
     {
-        public int Value { get; set; } 
-    }
-    
-    public class InstructionResult
-    {
-        public InstructionResult(int value)
-        {
-            Value = value;
-        }
-
-        private int Value { get; set; }
+        public int A { get; set; }
     }
 
-    
-    public class VoidInstruction : Instruction {}
-
-    public class UnaryInstruction : Instruction
+    public class BinaryInstruction : UnaryInstruction
     {
-        public Operand Operand1 { get; set; }
+        public int B { get; set; }
     }
-
-    public class BinaryInstruction : Instruction
-    {
-        public Operand Operand1 { get; set; }
-        public Operand Operand2 { get; set; }
-    }
-
-    public class ArithmeticInstruction : BinaryInstruction {}
-    
-    public class LogicalInstruction: BinaryInstruction {}
 }

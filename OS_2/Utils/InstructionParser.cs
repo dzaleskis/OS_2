@@ -21,7 +21,7 @@ namespace OS_2.Utils
             return converted;
         }
         
-        public static Operand ParseSignedOperand(byte[] rawOperand)
+        public static int ParseSignedOperand(byte[] rawOperand)
         {
             if (rawOperand.Length != Constants.INSTRUCTION_OPERAND_LENGTH)
             {
@@ -29,14 +29,11 @@ namespace OS_2.Utils
             }
             
             int converted = BitConverter.ToInt16(rawOperand);
-            
-            return new Operand()
-            {
-                Value = converted
-            };
+
+            return converted;
         }
         
-        public static Operand ParseUnsignedOperand(byte[] rawOperand)
+        public static int ParseUnsignedOperand(byte[] rawOperand)
         {
             if (rawOperand.Length != Constants.INSTRUCTION_OPERAND_LENGTH)
             {
@@ -44,11 +41,8 @@ namespace OS_2.Utils
             }
             
             int converted = BitConverter.ToUInt16(rawOperand);
-            
-            return new Operand()
-            {
-                Value = converted
-            };
+
+            return converted;
         }
     }
 }

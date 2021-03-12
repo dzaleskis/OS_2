@@ -7,7 +7,6 @@ namespace OS_2.Tests.Utils
 {
     public class InstructionParserTests
     {
-
         [Test]
         public void ThrowsOnInvalidOpcodeLength()
         {
@@ -29,7 +28,6 @@ namespace OS_2.Tests.Utils
             Assert.That(InstructionParser.ParseOpcode(validOpcodeBytes) == Opcode.ADD);
         }
         
-        
         [Test]
         public void ThrowsOnInvalidOperandLength()
         {
@@ -39,31 +37,21 @@ namespace OS_2.Tests.Utils
         }
 
         [Test]
-        public void ParsesSignedOperandCorrectly1()
+        [TestCase(short.MinValue)]
+        [TestCase(short.MaxValue)]
+        public void ParsesSignedOperandCorrectly1(short s)
         {
-            var validOperandBytes = BitConverter.GetBytes(short.MaxValue);
-            Assert.That(InstructionParser.ParseSignedOperand(validOperandBytes).Value == short.MaxValue);
+            var validOperandBytes = BitConverter.GetBytes(s);
+            Assert.That(InstructionParser.ParseSignedOperand(validOperandBytes) == s);
         }
-        
+
         [Test]
-        public void ParsesSignedOperandCorrectly2()
+        [TestCase(ushort.MinValue)]
+        [TestCase(ushort.MaxValue)]
+        public void ParsesUnsignedOperandCorrectly1(ushort u)
         {
-            var validOperandBytes = BitConverter.GetBytes(short.MinValue);
-            Assert.That(InstructionParser.ParseSignedOperand(validOperandBytes).Value == short.MinValue);
-        }
-        
-        [Test]
-        public void ParsesUnsignedOperandCorrectly1()
-        {
-            var validOperandBytes = BitConverter.GetBytes(ushort.MaxValue);
-            Assert.That(InstructionParser.ParseUnsignedOperand(validOperandBytes).Value == ushort.MaxValue);
-        }
-        
-        [Test]
-        public void ParsesUnsignedOperandCorrectly2()
-        {
-            var validOperandBytes = BitConverter.GetBytes(ushort.MinValue);
-            Assert.That(InstructionParser.ParseUnsignedOperand(validOperandBytes).Value == ushort.MinValue);
+            var validOperandBytes = BitConverter.GetBytes(u);
+            Assert.That(InstructionParser.ParseUnsignedOperand(validOperandBytes) == u);
         }
     }
 }
