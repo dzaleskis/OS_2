@@ -1,7 +1,8 @@
 ﻿using System;
-using System.Diagnostics;
+using System.IO;
 using System.Threading;
-using Monitor = OS_2.IO.Monitor;
+using OS_2.Machines;
+using OS_2.Utils;
 
 namespace OS_2
 {
@@ -9,16 +10,16 @@ namespace OS_2
     {
         static void Main(string[] args)
         {
-            Console.ReadLine();
-            var monitor = new Monitor();
-            monitor.StartRunning();
-            monitor.WriteTo(0, 65);
-            monitor.WriteTo(1, 66);
-            Thread.Sleep(1000);
-            monitor.WriteTo(0, 80);
-            monitor.WriteTo(1, 85);
-            Thread.Sleep(1000);
-            monitor.StopRunning();
+            Console.WriteLine("Enter something...");
+            var str = Console.ReadLine();
+            File.WriteAllText(Constants.FLOPPY_FILENAME, str);
+            var machine = new Machine();
+            Thread.Sleep(200);
+            for (int i = 0; i < str.Length; i++)
+            {
+                machine.ExecuteCycle();
+                Thread.Sleep(100);
+            }
         }
     }
 }

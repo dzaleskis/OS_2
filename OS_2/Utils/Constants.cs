@@ -14,6 +14,11 @@ namespace OS_2.Utils
 
         public const int INSTRUCTION_OPCODE_LENGTH = 2;
         public const int INSTRUCTION_OPERAND_LENGTH = 2;
+        public const int INSTRUCTION__LENGTH = INSTRUCTION_OPCODE_LENGTH + INSTRUCTION_OPERAND_LENGTH;
+
+        public const int WORD_LENGTH = 2;
+
+        public const string FLOPPY_FILENAME = "floppy.txt";
 
         // public const int ZF = 0x01;
         // public const int SF = 0x02;

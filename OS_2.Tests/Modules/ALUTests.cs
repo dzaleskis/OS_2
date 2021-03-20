@@ -1,5 +1,4 @@
-﻿using System;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using OS_2.Concepts;
 using OS_2.Modules;
 
@@ -7,12 +6,12 @@ namespace OS_2.Tests.Modules
 {
     public class ALUTests
     {
-        private ALU _alu;
+        private ALU alu;
 
         [SetUp]
         public void Setup()
         {
-            _alu = new ALU();
+            alu = new ALU();
         }
 
         [Test]
@@ -26,27 +25,12 @@ namespace OS_2.Tests.Modules
             {
                 A = a,
                 B = b,
-                Opcode = Opcode.IADD
-            };
-            var result = _alu.Process(op);
-            Assert.That(result.Equals(c));
-        }
-        
-        [Test]
-        [TestCase(1, 4, 5)]
-        [TestCase(ushort.MaxValue, 1, 0)]
-        public void AddsUnsignedCorrectly(int a, int b, int c)
-        {
-            var op = new BinaryInstruction()
-            {
-                A = a,
-                B = b,
                 Opcode = Opcode.ADD
             };
-            var result = _alu.Process(op);
+            var result = alu.Process(op);
             Assert.That(result.Equals(c));
         }
-        
+
         [Test]
         [TestCase(1, 4, -3)]
         [TestCase(1, -4, 5)]
@@ -58,27 +42,12 @@ namespace OS_2.Tests.Modules
             {
                 A = a,
                 B = b,
-                Opcode = Opcode.ISUB
-            };
-            var result = _alu.Process(op);
-            Assert.That(result.Equals(c));
-        }
-        
-        [Test]
-        [TestCase(1, 4, ushort.MaxValue - 2)]
-        [TestCase(ushort.MaxValue, 5, ushort.MaxValue - 5)]
-        public void SubtractsUnsignedCorrectly(int a, int b, int c)
-        {
-            var op = new BinaryInstruction()
-            {
-                A = a,
-                B = b,
                 Opcode = Opcode.SUB
             };
-            var result = _alu.Process(op);
+            var result = alu.Process(op);
             Assert.That(result.Equals(c));
         }
-        
+
         [Test]
         [TestCase(32, 4, 128)]
         [TestCase(55, 0, 0)]
@@ -91,7 +60,7 @@ namespace OS_2.Tests.Modules
                 B = b,
                 Opcode = Opcode.IMUL
             };
-            var result = _alu.Process(op);
+            var result = alu.Process(op);
             Assert.That(result.Equals(c));
         }
         
@@ -106,7 +75,7 @@ namespace OS_2.Tests.Modules
                 B = b,
                 Opcode = Opcode.MUL
             };
-            var result = _alu.Process(op);
+            var result = alu.Process(op);
             Assert.That(result.Equals(c));
         }
         
@@ -123,7 +92,7 @@ namespace OS_2.Tests.Modules
                 B = b,
                 Opcode = Opcode.IDIV
             };
-            var result = _alu.Process(op);
+            var result = alu.Process(op);
             Assert.That(result.Equals(c));
         }
         
@@ -138,7 +107,7 @@ namespace OS_2.Tests.Modules
                 B = b,
                 Opcode = Opcode.DIV
             };
-            var result = _alu.Process(op);
+            var result = alu.Process(op);
             Assert.That(result.Equals(c));
         }
         
@@ -153,7 +122,7 @@ namespace OS_2.Tests.Modules
                 B = b,
                 Opcode = Opcode.AND
             };
-            var result = _alu.Process(op);
+            var result = alu.Process(op);
             Assert.That(result.Equals(c));
         }
         
@@ -168,7 +137,7 @@ namespace OS_2.Tests.Modules
                 B = b,
                 Opcode = Opcode.OR
             };
-            var result = _alu.Process(op);
+            var result = alu.Process(op);
             Assert.That(result.Equals(c));
         }
         
@@ -183,7 +152,7 @@ namespace OS_2.Tests.Modules
                 B = b,
                 Opcode = Opcode.XOR
             };
-            var result = _alu.Process(op);
+            var result = alu.Process(op);
             Assert.That(result.Equals(c));
         }
         
@@ -197,7 +166,7 @@ namespace OS_2.Tests.Modules
                 A = a,
                 Opcode = Opcode.NOT
             };
-            var result = _alu.Process(op);
+            var result = alu.Process(op);
             Assert.That(result.Equals(b));
         }
 
@@ -208,19 +177,19 @@ namespace OS_2.Tests.Modules
             {
                 A = -5,
                 B = 6,
-                Opcode = Opcode.IADD
+                Opcode = Opcode.ADD
             };
-            Assert.That(_alu.Process(op) == 1);
-            Assert.That(!_alu.GetFlags().HasFlag(Flags.ZF));
+            Assert.That(alu.Process(op) == 1);
+            Assert.That(!alu.Flags.HasFlag(Flags.ZF));
             
             op = new BinaryInstruction()
             {
                 A = -5,
                 B = 5,
-                Opcode = Opcode.IADD
+                Opcode = Opcode.ADD
             };
-            Assert.That(_alu.Process(op) == 0);
-            Assert.That(_alu.GetFlags().HasFlag(Flags.ZF));
+            Assert.That(alu.Process(op) == 0);
+            Assert.That(alu.Flags.HasFlag(Flags.ZF));
         }
         
         [Test]
@@ -230,19 +199,19 @@ namespace OS_2.Tests.Modules
             {
                 A = 5,
                 B = 1,
-                Opcode = Opcode.IADD
+                Opcode = Opcode.ADD
             };
-            Assert.That(_alu.Process(op) == 6);
-            Assert.That(!_alu.GetFlags().HasFlag(Flags.SF));
+            Assert.That(alu.Process(op) == 6);
+            Assert.That(!alu.Flags.HasFlag(Flags.SF));
             
             op = new BinaryInstruction()
             {
                 A = -5,
                 B = 1,
-                Opcode = Opcode.IADD
+                Opcode = Opcode.ADD
             };
-            Assert.That(_alu.Process(op) == -4);
-            Assert.That(_alu.GetFlags().HasFlag(Flags.SF));
+            Assert.That(alu.Process(op) == -4);
+            Assert.That(alu.Flags.HasFlag(Flags.SF));
         }
         
         [Test]
@@ -252,46 +221,46 @@ namespace OS_2.Tests.Modules
             {
                 A = 5,
                 B = 1,
-                Opcode = Opcode.IADD
+                Opcode = Opcode.ADD
             };
-            _alu.Process(op);
-            Assert.That(!_alu.GetFlags().HasFlag(Flags.OF));
+            alu.Process(op);
+            Assert.That(!alu.Flags.HasFlag(Flags.OF));
             
             op = new BinaryInstruction()
             {
                 A = short.MaxValue,
                 B = 1,
-                Opcode = Opcode.IADD
+                Opcode = Opcode.ADD
             };
-            _alu.Process(op);
-            Assert.That(_alu.GetFlags().HasFlag(Flags.OF));
+            alu.Process(op);
+            Assert.That(alu.Flags.HasFlag(Flags.OF));
             
             op = new BinaryInstruction()
             {
                 A = short.MinValue,
                 B = -1,
-                Opcode = Opcode.IADD
+                Opcode = Opcode.ADD
             };
-            _alu.Process(op);
-            Assert.That(_alu.GetFlags().HasFlag(Flags.OF));
+            alu.Process(op);
+            Assert.That(alu.Flags.HasFlag(Flags.OF));
             
             op = new BinaryInstruction()
             {
                 A = short.MinValue,
                 B = 1,
-                Opcode = Opcode.ISUB
+                Opcode = Opcode.SUB
             };
-            _alu.Process(op);
-            Assert.That(_alu.GetFlags().HasFlag(Flags.OF));
+            alu.Process(op);
+            Assert.That(alu.Flags.HasFlag(Flags.OF));
             
             op = new BinaryInstruction()
             {
                 A = short.MaxValue,
                 B = -1,
-                Opcode = Opcode.ISUB
+                Opcode = Opcode.SUB
             };
-            _alu.Process(op);
-            Assert.That(_alu.GetFlags().HasFlag(Flags.OF));
+            alu.Process(op);
+            Assert.That(alu.Flags.HasFlag(Flags.OF));
         }
         
         [Test]
@@ -303,17 +272,17 @@ namespace OS_2.Tests.Modules
                 B = 1,
                 Opcode = Opcode.ADD
             };
-            _alu.Process(op);
-            Assert.That(!_alu.GetFlags().HasFlag(Flags.CF));
+            alu.Process(op);
+            Assert.That(!alu.Flags.HasFlag(Flags.CF));
             
             op = new BinaryInstruction()
             {
-                A = ushort.MaxValue,
+                A = -1, // this is 0xFFFF in 2's complement
                 B = 1,
                 Opcode = Opcode.ADD
             };
-            _alu.Process(op);
-            Assert.That(_alu.GetFlags().HasFlag(Flags.CF));
+            alu.Process(op);
+            Assert.That(alu.Flags.HasFlag(Flags.CF));
             
             op = new BinaryInstruction()
             {
@@ -321,8 +290,8 @@ namespace OS_2.Tests.Modules
                 B = 2,
                 Opcode = Opcode.SUB
             };
-            _alu.Process(op);
-            Assert.That(_alu.GetFlags().HasFlag(Flags.CF));
+            alu.Process(op);
+            Assert.That(alu.Flags.HasFlag(Flags.CF));
         }
     }
 }

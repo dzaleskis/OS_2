@@ -5,7 +5,5 @@
         public void RegisterInterruptLine(InterruptLine line);
 
         public void HandleInterruptRequest(InterruptLine line);
-
-        public byte ReadInterruptRequests();
     }
 }

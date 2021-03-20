@@ -7,7 +7,7 @@ namespace OS_2.Modules
 {
     public class InterruptController: IInterruptController
     {
-        private byte _irq = 0;
+        public byte IRQ { get; set; }
 
         private readonly List<InterruptLine> _interruptLines = new List<InterruptLine>();
 
@@ -20,19 +20,7 @@ namespace OS_2.Modules
         {
             var index = _interruptLines.IndexOf(line);
             var bitToMark = (byte) (1 << index);
-            _irq |= bitToMark;
-        }
-
-        public byte ReadInterruptRequests()
-        {
-            var toReturn = _irq;
-            _irq = 0;
-            return toReturn;
-        }
-
-        private static byte Pow(int x, int pow)
-        {
-            return (byte) Math.Pow(x, pow);
+            IRQ |= bitToMark;
         }
     }
 }

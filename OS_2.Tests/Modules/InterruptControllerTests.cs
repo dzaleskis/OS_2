@@ -20,14 +20,14 @@ namespace OS_2.Tests.Modules
         [Test]
         public void ReturnsZeroIfNoRequestsMade()
         {
-            Assert.That(controller.ReadInterruptRequests() == 0);
+            Assert.That(controller.IRQ == 0);
         }
         
         [Test]
         public void HandlesInterruptCorrectly()
         {
             controller.HandleInterruptRequest(deviceMock.Object);
-            Assert.That(controller.ReadInterruptRequests() == 1);
+            Assert.That(controller.IRQ == 1);
         }
         
         [Test]
@@ -36,15 +36,7 @@ namespace OS_2.Tests.Modules
             var deviceMock2 = new Mock<InterruptLine>(controller);
             controller.HandleInterruptRequest(deviceMock.Object);
             controller.HandleInterruptRequest(deviceMock2.Object);
-            Assert.That(controller.ReadInterruptRequests() == 3);
-        }
-        
-        [Test]
-        public void ReturnsZeroAfterInterruptRead()
-        {
-            controller.HandleInterruptRequest(deviceMock.Object);
-            Assert.That(controller.ReadInterruptRequests() == 1);
-            Assert.That(controller.ReadInterruptRequests() == 0);
+            Assert.That(controller.IRQ == 3);
         }
     }
 }

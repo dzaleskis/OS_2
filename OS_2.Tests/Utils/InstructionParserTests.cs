@@ -32,26 +32,18 @@ namespace OS_2.Tests.Utils
         public void ThrowsOnInvalidOperandLength()
         {
             var invalidOperandLength = new byte[] {0, 0, 0};
-            Assert.Throws<ArgumentException>(() => InstructionParser.ParseSignedOperand(invalidOperandLength));
-            Assert.Throws<ArgumentException>(() => InstructionParser.ParseUnsignedOperand(invalidOperandLength));
+            Assert.Throws<ArgumentException>(() => InstructionParser.ParseOperand(invalidOperandLength));
         }
 
         [Test]
+        [TestCase(0)]
+        [TestCase(-1)]
         [TestCase(short.MinValue)]
         [TestCase(short.MaxValue)]
-        public void ParsesSignedOperandCorrectly1(short s)
+        public void ParsesOperandCorrectly1(short s)
         {
             var validOperandBytes = BitConverter.GetBytes(s);
-            Assert.That(InstructionParser.ParseSignedOperand(validOperandBytes) == s);
-        }
-
-        [Test]
-        [TestCase(ushort.MinValue)]
-        [TestCase(ushort.MaxValue)]
-        public void ParsesUnsignedOperandCorrectly1(ushort u)
-        {
-            var validOperandBytes = BitConverter.GetBytes(u);
-            Assert.That(InstructionParser.ParseUnsignedOperand(validOperandBytes) == u);
+            Assert.That(InstructionParser.ParseOperand(validOperandBytes) == s);
         }
     }
 }

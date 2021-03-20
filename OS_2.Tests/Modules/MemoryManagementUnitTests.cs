@@ -8,21 +8,21 @@ namespace OS_2.Tests.Modules
     public class MemoryManagementUnitTests
     {
         private Memory memory;
-        private PageTable pageTable;
         private MemoryManagementUnit unit;
+        private const int PAGE_TABLE_ADDRESS = 1024;
         
         [SetUp]
         public void Setup()
         {
             memory = new Memory();
-            pageTable = new PageTable();
-            unit = new MemoryManagementUnit(memory, pageTable);
+            unit = new MemoryManagementUnit(memory);
+            unit.PT = PAGE_TABLE_ADDRESS;
         }
         
         [Test]
         public void ConvertsAddressCorrectly()
         {
-            pageTable[0] = 22; // real address of page is 22
+            memory[PAGE_TABLE_ADDRESS] = 22; // real address of page is 22
             var result = unit.ConvertVirtualToReal(30); // access virtual address 30
             Assert.That(result == 30 + 22);
         }
@@ -31,25 +31,28 @@ namespace OS_2.Tests.Modules
         public void AccessesMemoryCorrectly1()
         {
             memory[512] = byte.MaxValue;
-            pageTable[1] = 512;
-            var result = unit.AccessMemory(512);
-            Assert.That(result == byte.MaxValue);
+            memory[PAGE_TABLE_ADDRESS + 2] = 512;
+            var realAddress = unit.ConvertVirtualToReal(512);
+            Assert.That(memory[realAddress] == byte.MaxValue);
         }
         
         [Test]
         public void AccessesMemoryCorrectly2()
         {
             memory[513] = short.MaxValue; // only FF should be read
-            pageTable[1] = 512;
-            var result = unit.AccessMemory(512);
-            Assert.That(result == -256); // FF00 should give -256 in two's complement
+            memory[PAGE_TABLE_ADDRESS + 2] = 512;
+            var realAddress = unit.ConvertVirtualToReal(512);
+            Assert.That(memory[realAddress] == -256); // FF00 should give -256 in two's complement
         }
         
         [Test]
-        public void ThrowsOnUnmappedPage()
+        public void ThrowsOnlyOnUnmappedPage()
         {
-            pageTable[1] = 0;
-            Assert.Throws<ArgumentException>(() => unit.AccessMemory(512));
+            memory[PAGE_TABLE_ADDRESS] = 5;
+            Assert.DoesNotThrow(() => unit.ConvertVirtualToReal(50));
+            
+            memory[PAGE_TABLE_ADDRESS + 2] = 0;
+            Assert.Throws<ArgumentException>(() => unit.ConvertVirtualToReal(512));
         }
         
         [TearDown]

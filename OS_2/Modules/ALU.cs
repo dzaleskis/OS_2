@@ -15,37 +15,37 @@ namespace OS_2.Modules
 
     public class ALU
     {
-        private Flags _flags;
+        public Flags Flags { get; private set; }
 
         private void SetFlags(UnaryInstruction instruction, int result)
         {
             // reset flags
-            _flags &= 0;
+            Flags &= 0;
 
             if (result == 0)
             {
-                _flags |= Flags.ZF;
+                Flags |= Flags.ZF;
             }
 
             if (result < 0)
             {
-                _flags |= Flags.SF;
+                Flags |= Flags.SF;
             }
         }
 
         private void SetFlags(BinaryInstruction instruction, int result)
         {
             // reset flags
-            _flags &= 0;
+            Flags &= 0;
             
             if (result == 0)
             {
-                _flags |= Flags.ZF;
+                Flags |= Flags.ZF;
             }
             
             if (result < 0)
             {
-                _flags |= Flags.SF;
+                Flags |= Flags.SF;
             }
             
             // need to limit to 16 bits
@@ -53,45 +53,38 @@ namespace OS_2.Modules
             bool BLastBitSet = instruction.B.ToUshort().IsLastBitSet();
             bool ResLastBitSet = result.ToUshort().IsLastBitSet();
             
-            // set the carry flag here
+            // set the carry & overflow flags here
             switch (instruction.Opcode)
             {
                 case Opcode.ADD:
-                case Opcode.IADD:
                     if ((ALastBitSet || BLastBitSet) && !ResLastBitSet)
                     {
-                        _flags |= Flags.CF;
+                        Flags |= Flags.CF;
                     }
                     if ((!ALastBitSet && !BLastBitSet) && ResLastBitSet)
                     {
-                        _flags |= Flags.OF;
+                        Flags |= Flags.OF;
                     }
                     if ((ALastBitSet && BLastBitSet) && !ResLastBitSet)
                     {
-                        _flags |= Flags.OF;
+                        Flags |= Flags.OF;
                     }
                     break;
                 case Opcode.SUB:
-                case Opcode.ISUB:
                     if ((!ALastBitSet && !BLastBitSet) && ResLastBitSet)
                     {
-                        _flags |= Flags.CF;
+                        Flags |= Flags.CF;
                     }
                     if ((!ALastBitSet && BLastBitSet) && ResLastBitSet)
                     {
-                        _flags |= Flags.OF;
+                        Flags |= Flags.OF;
                     }
                     if ((ALastBitSet && !BLastBitSet) && !ResLastBitSet)
                     {
-                        _flags |= Flags.OF;
+                        Flags |= Flags.OF;
                     }
                     break;
             }
-        }
-
-        public Flags GetFlags()
-        {
-            return _flags;
         }
 
         public int Process(BinaryInstruction instruction)
@@ -101,15 +94,9 @@ namespace OS_2.Modules
             switch (instruction.Opcode)
             {
                 case Opcode.ADD:
-                    result = (ushort)(instruction.A.ToUshort() + instruction.B.ToUshort());
-                    break;
-                case Opcode.IADD:
                     result = (short)(instruction.A.ToShort() + instruction.B.ToShort());
                     break;
                 case Opcode.SUB:
-                    result = (ushort)(instruction.A.ToUshort() - instruction.B.ToUshort());
-                    break;
-                case Opcode.ISUB:
                     result = (short)(instruction.A.ToShort() - instruction.B.ToShort());
                     break;
                 case Opcode.MUL:

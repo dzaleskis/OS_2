@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace OS_2.Concepts
+﻿namespace OS_2.Concepts
 {
     public class PageTable
     {

@@ -6,9 +6,7 @@ namespace OS_2.Concepts
     {
         HALT,
         ADD,
-        IADD,
         SUB,
-        ISUB,
         MUL,
         IMUL,
         DIV,
@@ -39,19 +37,6 @@ namespace OS_2.Concepts
         INB,
         OUTB
     }
-
-    public enum ArithmeticOpcode
-    {
-        ADD = Opcode.ADD,
-        IADD = Opcode.IADD,
-        SUB = Opcode.SUB,
-        ISUB = Opcode.ISUB,
-        MUL = Opcode.MUL,
-        IMUL = Opcode.IMUL,
-        DIV = Opcode.DIV,
-        IDIV = Opcode.IDIV
-    }
-
 
     public class VoidInstruction
     {
