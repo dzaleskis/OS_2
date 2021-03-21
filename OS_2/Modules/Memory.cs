@@ -24,6 +24,11 @@ namespace OS_2.Modules
             }
         }
 
+        public byte[] Read(int index, int count)
+        {
+            return mem.Skip(index).Take(count).ToArray();
+        }
+
         public void Reset()
         {
             mem = new byte[Constants.TOTAL_MEMORY_SIZE];

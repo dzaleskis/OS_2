@@ -4,7 +4,7 @@ using OS_2.Utils;
 
 namespace OS_2.Concepts
 {
-    public abstract class AbstractCycleDevice: IDisposable
+    public abstract class AbstractCycleDevice: IDisposable, ICycleDevice
     {
         protected int Timeout { get; private set; } = Constants.DEFAULT_TIMEOUT;
         private Timer _timer;
@@ -26,7 +26,7 @@ namespace OS_2.Concepts
             Dispose();
         }
         
-        protected abstract void DoCycle();
+        public abstract void DoCycle();
 
         public void Dispose()
         {

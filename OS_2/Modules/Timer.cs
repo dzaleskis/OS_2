@@ -19,7 +19,7 @@ namespace OS_2.Modules
             InterruptLine = new InterruptLine(controller);
         }
 
-        protected override void DoCycle()
+        public override void DoCycle()
         {
             if (_interruptsEnabled)
             {

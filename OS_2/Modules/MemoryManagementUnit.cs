@@ -8,7 +8,8 @@ namespace OS_2.Modules
     {
         private readonly Memory _memory;
         public int PT { get; set; }
-
+        public int CR1 { get; set; }
+        
         public MemoryManagementUnit(Memory memory)
         {
             _memory = memory;
@@ -23,6 +24,8 @@ namespace OS_2.Modules
             // if address is empty, we imply it's not in page table
             if (realPageAddress == 0)
             {
+                // need to specify which virtual address failed translation
+                CR1 = virtualAddress;
                 throw new ArgumentException("Page not in table");
             }
             return realPageAddress + offset;

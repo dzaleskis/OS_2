@@ -114,7 +114,7 @@ namespace OS_2.IO
             file.Close();
         }
 
-        protected override void DoCycle()
+        public override void DoCycle()
         {
             // do on every cycle:
             // if control register is set to ReadData and queue is empty

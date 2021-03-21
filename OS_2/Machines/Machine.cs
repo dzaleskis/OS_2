@@ -9,26 +9,19 @@ namespace OS_2.Machines
 {
     public class Machine
     {
-        private ControlUnit ControlUnit = new ControlUnit();
-        private ExecutionUnit ExecutionUnit = new ExecutionUnit();
         private Memory Memory = new Memory();
         private Ports Ports = new Ports();
-        private InterruptController InterruptController = new InterruptController();
-        private MemoryManagementUnit MMU;
+        private CPU CPU;
         private Timer Timer;
         private FloppyDrive FloppyDrive;
         private Monitor Monitor;
 
-        public int timerStartPort;
-        public int floppyStartPort;
-        public int monitorStartPort;
-
         public Machine()
         {
-            MMU = new MemoryManagementUnit(Memory);
-            Timer = new Timer(InterruptController);
+            CPU = new CPU(Memory, Ports);
+            Timer = new Timer(CPU.InterruptController);
             Ports.AllocateDevice(Timer);
-            FloppyDrive = new FloppyDrive(Constants.FLOPPY_FILENAME, InterruptController);
+            FloppyDrive = new FloppyDrive(Constants.FLOPPY_FILENAME, CPU.InterruptController);
             Ports.AllocateDevice(FloppyDrive);
             Monitor = new Monitor();
             Ports.AllocateDevice(Monitor);

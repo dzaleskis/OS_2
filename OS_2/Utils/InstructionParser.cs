@@ -32,29 +32,5 @@ namespace OS_2.Utils
 
             return converted;
         }
-        
-        // public static int ParseSignedOperand(byte[] rawOperand)
-        // {
-        //     if (rawOperand.Length != Constants.INSTRUCTION_OPERAND_LENGTH)
-        //     {
-        //         throw new ArgumentException("Invalid operand length");
-        //     }
-        //     
-        //     int converted = BitConverter.ToInt16(rawOperand);
-        //
-        //     return converted;
-        // }
-        
-        // public static int ParseUnsignedOperand(byte[] rawOperand)
-        // {
-        //     if (rawOperand.Length != Constants.INSTRUCTION_OPERAND_LENGTH)
-        //     {
-        //         throw new ArgumentException("Invalid operand length");
-        //     }
-        //     
-        //     int converted = BitConverter.ToUInt16(rawOperand);
-        //
-        //     return converted;
-        // }
     }
 }
