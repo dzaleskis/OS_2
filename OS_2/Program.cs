@@ -17,7 +17,7 @@ namespace OS_2
             Thread.Sleep(200);
             for (int i = 0; i < str.Length; i++)
             {
-                machine.ExecuteCycle();
+                machine.DoCycle();
                 Thread.Sleep(100);
             }
         }

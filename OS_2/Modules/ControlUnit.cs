@@ -7,7 +7,7 @@ namespace OS_2.Modules
 {
     public class ControlUnit
     {
-        private int PC { get; set; }
+        public int PC { get; set; }
         public Opcode Opcode { get; private set; }
         public int Operand { get; private set; }
         
@@ -31,6 +31,11 @@ namespace OS_2.Modules
         {
             _instructionBytes = memAccessFunc(PC);
             PC += Constants.INSTRUCTION__LENGTH;
+        }
+
+        public void Jump(int address)
+        {
+            PC = address;
         }
     }
 }

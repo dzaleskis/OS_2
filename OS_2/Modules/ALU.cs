@@ -15,7 +15,7 @@ namespace OS_2.Modules
 
     public class ALU
     {
-        public Flags Flags { get; private set; }
+        public Flags Flags { get; set; }
 
         private void SetFlags(UnaryInstruction instruction, int result)
         {
