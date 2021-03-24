@@ -32,10 +32,5 @@ namespace OS_2.Modules
             _instructionBytes = memAccessFunc(PC);
             PC += Constants.INSTRUCTION__LENGTH;
         }
-
-        public void Jump(int address)
-        {
-            PC = address;
-        }
     }
 }

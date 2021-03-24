@@ -19,7 +19,8 @@ namespace OS_2.Modules
         {
             var stackTop = context.MemRead(SP);
             var stackTop2 = context.MemRead(SP - Constants.WORD_LENGTH);
-
+            var flags = ALU.Flags;
+            
             switch (context.Opcode)
             {
                 case Opcode.HALT:
@@ -74,15 +75,77 @@ namespace OS_2.Modules
                     Pop();
                     break;
                 case Opcode.JMP:
+                    context.PCWrite(context.Operand);
+                    break;
                 case Opcode.JE:
+                    if (flags.HasFlag(Flags.ZF))
+                    {
+                        context.PCWrite(context.Operand);
+                    }
+                    break;
                 case Opcode.JL:
+                    if (flags.HasFlag(Flags.SF) != flags.HasFlag(Flags.OF))
+                    {
+                        context.PCWrite(context.Operand);
+                    }
+                    break;
+                case Opcode.JB:
+                    if (flags.HasFlag(Flags.CF))
+                    {
+                        context.PCWrite(context.Operand);
+                    }
+                    break;
                 case Opcode.JLE:
+                    if (flags.HasFlag(Flags.SF) != flags.HasFlag(Flags.OF) || flags.HasFlag(Flags.ZF))
+                    {
+                        context.PCWrite(context.Operand);
+                    }
+                    break;
+                case Opcode.JBE:
+                    if (flags.HasFlag(Flags.CF) || flags.HasFlag(Flags.ZF))
+                    {
+                        context.PCWrite(context.Operand);
+                    }
+                    break;
                 case Opcode.JG:
+                    if (!flags.HasFlag(Flags.ZF) && flags.HasFlag(Flags.SF) == flags.HasFlag(Flags.OF))
+                    {
+                        context.PCWrite(context.Operand);
+                    }
+                    break;
+                case Opcode.JA:
+                    if (!flags.HasFlag(Flags.CF) && !flags.HasFlag(Flags.ZF))
+                    {
+                        context.PCWrite(context.Operand);
+                    }
+                    break;
                 case Opcode.JGE:
+                    if (flags.HasFlag(Flags.SF) == flags.HasFlag(Flags.OF))
+                    {
+                        context.PCWrite(context.Operand);
+                    }
+                    break;
+                case Opcode.JAE:
+                    if (!flags.HasFlag(Flags.CF))
+                    {
+                        context.PCWrite(context.Operand);
+                    }
+                    break;
                 case Opcode.LOOP:
+                    var dec = stackTop - 1;
+                    ReplaceTop(dec, context.MemWrite);
+                    if (dec != 0)
+                    {
+                        context.PCWrite(context.Operand);
+                    }
+                    break;
                 case Opcode.CALL:
+                    Push(context.PCRead(), context.MemWrite);
+                    context.PCWrite(context.Operand);
+                    break;
                 case Opcode.RET:
-                    // these all suck
+                    context.PCWrite(stackTop);
+                    Pop();
                     break;
                 case Opcode.INT:
                     INTR = unchecked((byte)context.Operand);

@@ -15,7 +15,8 @@ namespace OS_2.Machines
         public Action<int, int> PortWrite;
         public Func<int, int> RegRead;
         public Action<int, int> RegWrite;
-        public Action<int> Jump;
+        public Action<int> PCWrite;
+        public Func<int> PCRead;
     }
     
     public class CPU: ICycleDevice
@@ -211,7 +212,8 @@ namespace OS_2.Machines
                 PortWrite = (port, value) => _ports.WriteToPort(port, unchecked((byte)value)),
                 RegRead = GetRegReadFunc(),
                 RegWrite = GetRegWriteFunc(),
-                Jump = (address) => _controlUnit.Jump(address)
+                PCWrite = (address) => _controlUnit.PC = address,
+                PCRead = () => _controlUnit.PC
             };
         }
 
