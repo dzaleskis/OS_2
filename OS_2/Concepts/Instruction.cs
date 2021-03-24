@@ -42,20 +42,17 @@ namespace OS_2.Concepts
         OUTB
     }
 
-    public class VoidInstruction
+    public class Instruction
     {
         public Opcode Opcode { get; set; }
-
-        public VoidInstruction(Opcode opcode)
-        {
-            Opcode = opcode;
-        }
+        public int Operand { get; set; }
     }
 
-    public class UnaryInstruction : VoidInstruction
+    public class UnaryInstruction
     {
+        public Opcode Opcode { get; set; }
         public int A { get; set; }
-        public UnaryInstruction(Opcode opcode, int a): base(opcode)
+        public UnaryInstruction(Opcode opcode, int a)
         {
             A = a;
         }

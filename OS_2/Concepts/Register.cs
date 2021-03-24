@@ -13,8 +13,8 @@ namespace OS_2.Concepts
     
     public enum ProtectedRegister
     {
-        BP,
-        SP,
-        FLAGS,
+        BP = RealRegister.BP,
+        SP = RealRegister.SP,
+        FLAGS = RealRegister.FLAGS,
     }
 }
