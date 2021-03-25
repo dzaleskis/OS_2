@@ -4,6 +4,11 @@
     &lt;TestId&gt;NUnit3x::25633803-E0DD-47BC-ADA2-F6307B748F18::.NETCoreApp,Version=v3.1::OS_2.Tests.Modules.ALUTests&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=37bcb2af_002Ddee3_002D4d93_002Dbc81_002D1b8e171ff804/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="AssemblesProgramCorrectly" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::25633803-E0DD-47BC-ADA2-F6307B748F18::.NETCoreApp,Version=v3.1::OS_2.Tests.Assembler.AssemblerTests.AssemblesProgramCorrectly&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=ce7cb3de_002Dcd8e_002D449b_002D8f0d_002Da5ee3e4d497a/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="All tests from &amp;lt;OS_2.Tests&amp;gt;" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;Project Location="C:\Users\deividas.zaleskis\uni\OS\OS_2\OS_2.Tests" Presentation="&amp;lt;OS_2.Tests&amp;gt;" /&gt;&#xD;
 &lt;/SessionState&gt;</s:String>

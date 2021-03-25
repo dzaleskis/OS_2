@@ -54,6 +54,7 @@ namespace OS_2.Concepts
         public int A { get; set; }
         public UnaryInstruction(Opcode opcode, int a)
         {
+            Opcode = opcode;
             A = a;
         }
     }

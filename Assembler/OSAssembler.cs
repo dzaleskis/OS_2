@@ -2,13 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection.Emit;
 using OS_2.Concepts;
 using OS_2.Utils;
 
 namespace Assembler
 {
-    public class Assembler
+    public static class OSAssembler
     {
         private class ExtendedVariable : StaticVariable
         {
