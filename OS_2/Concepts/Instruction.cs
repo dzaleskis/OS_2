@@ -35,6 +35,7 @@ namespace OS_2.Concepts
         LOOP,
         CALL,
         RET,
+        IRET,
         INT,
         POPR,
         PUSHR,

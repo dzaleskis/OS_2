@@ -1,6 +1,7 @@
 using System;
 using NUnit.Framework;
 using OS_2.Concepts;
+using OS_2.Exceptions;
 using OS_2.Modules;
 
 namespace OS_2.Tests.Modules
@@ -52,7 +53,7 @@ namespace OS_2.Tests.Modules
             Assert.DoesNotThrow(() => unit.ConvertVirtualToReal(50));
             
             memory[PAGE_TABLE_ADDRESS + 2] = 0;
-            Assert.Throws<ArgumentException>(() => unit.ConvertVirtualToReal(512));
+            Assert.Throws<PageException>(() => unit.ConvertVirtualToReal(512));
         }
         
         [TearDown]

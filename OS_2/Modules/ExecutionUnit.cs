@@ -1,5 +1,6 @@
 ﻿using System;
 using OS_2.Concepts;
+using OS_2.Exceptions;
 using OS_2.Machines;
 using OS_2.Utils;
 
@@ -27,7 +28,7 @@ namespace OS_2.Modules
                     // if in protected mode, switch to real mode and continue execution?
                     // if in real mode, stop execution
                     // probably easiest to throw an exception and determine how to handle it in CPU
-                    throw new Exception("HALT");
+                    throw new HaltException();
                 case Opcode.ADD:
                 case Opcode.SUB:
                 case Opcode.MUL:
@@ -75,60 +76,60 @@ namespace OS_2.Modules
                     Pop();
                     break;
                 case Opcode.JMP:
-                    context.PCWrite(context.Operand);
+                    Jump(context.Operand, context.PCWrite);
                     break;
                 case Opcode.JE:
                     if (flags.HasFlag(Flags.ZF))
                     {
-                        context.PCWrite(context.Operand);
+                        Jump(context.Operand, context.PCWrite);
                     }
                     break;
                 case Opcode.JL:
                     if (flags.HasFlag(Flags.SF) != flags.HasFlag(Flags.OF))
                     {
-                        context.PCWrite(context.Operand);
+                        Jump(context.Operand, context.PCWrite);
                     }
                     break;
                 case Opcode.JB:
                     if (flags.HasFlag(Flags.CF))
                     {
-                        context.PCWrite(context.Operand);
+                        Jump(context.Operand, context.PCWrite);
                     }
                     break;
                 case Opcode.JLE:
                     if (flags.HasFlag(Flags.SF) != flags.HasFlag(Flags.OF) || flags.HasFlag(Flags.ZF))
                     {
-                        context.PCWrite(context.Operand);
+                        Jump(context.Operand, context.PCWrite);
                     }
                     break;
                 case Opcode.JBE:
                     if (flags.HasFlag(Flags.CF) || flags.HasFlag(Flags.ZF))
                     {
-                        context.PCWrite(context.Operand);
+                        Jump(context.Operand, context.PCWrite);
                     }
                     break;
                 case Opcode.JG:
                     if (!flags.HasFlag(Flags.ZF) && flags.HasFlag(Flags.SF) == flags.HasFlag(Flags.OF))
                     {
-                        context.PCWrite(context.Operand);
+                        Jump(context.Operand, context.PCWrite);
                     }
                     break;
                 case Opcode.JA:
                     if (!flags.HasFlag(Flags.CF) && !flags.HasFlag(Flags.ZF))
                     {
-                        context.PCWrite(context.Operand);
+                        Jump(context.Operand, context.PCWrite);
                     }
                     break;
                 case Opcode.JGE:
                     if (flags.HasFlag(Flags.SF) == flags.HasFlag(Flags.OF))
                     {
-                        context.PCWrite(context.Operand);
+                        Jump(context.Operand, context.PCWrite);
                     }
                     break;
                 case Opcode.JAE:
                     if (!flags.HasFlag(Flags.CF))
                     {
-                        context.PCWrite(context.Operand);
+                        Jump(context.Operand, context.PCWrite);
                     }
                     break;
                 case Opcode.LOOP:
@@ -136,14 +137,20 @@ namespace OS_2.Modules
                     ReplaceTop(dec, context.MemWrite);
                     if (dec != 0)
                     {
-                        context.PCWrite(context.Operand);
+                        Jump(context.Operand, context.PCWrite);
                     }
                     break;
                 case Opcode.CALL:
                     Push(context.PCRead(), context.MemWrite);
-                    context.PCWrite(context.Operand);
+                    Jump(context.Operand, context.PCWrite);
                     break;
                 case Opcode.RET:
+                    context.PCWrite(stackTop);
+                    Pop();
+                    break;
+                case Opcode.IRET:
+                    context.RegWrite((int)RealRegister.FLAGS, stackTop);
+                    Pop();
                     context.PCWrite(stackTop);
                     Pop();
                     break;
@@ -170,18 +177,23 @@ namespace OS_2.Modules
             }
         }
 
-        private void Push(int value, Action<int, int> memWriteFunc)
+        public void Jump(int address, Action<int> pcWriteFunc)
+        {
+            pcWriteFunc(address);
+        }
+
+        public void Push(int value, Action<int, int> memWriteFunc)
         {
             SP += Constants.WORD_LENGTH;
             ReplaceTop(value, memWriteFunc);
         }
 
-        private void Pop()
+        public void Pop()
         {
             SP -= Constants.WORD_LENGTH;
         }
         
-        private void ReplaceTop(int value, Action<int, int> memWriteFunc)
+        public void ReplaceTop(int value, Action<int, int> memWriteFunc)
         {
             memWriteFunc(SP, value);
         }

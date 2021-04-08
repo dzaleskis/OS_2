@@ -1,5 +1,6 @@
 ﻿using System;
 using OS_2.Concepts;
+using OS_2.Exceptions;
 using OS_2.Modules;
 using OS_2.Utils;
 
@@ -18,6 +19,12 @@ namespace OS_2.Machines
         public Action<int> PCWrite;
         public Func<int> PCRead;
     }
+
+    public enum InterruptCode
+    {
+        HaltException,
+        PageException
+    }
     
     public class CPU: ICycleDevice
     {
@@ -27,8 +34,6 @@ namespace OS_2.Machines
         private readonly Memory _memory;
         public readonly InterruptController InterruptController = new InterruptController();
         private readonly MemoryManagementUnit _mmu;
-        
-        private const int REAL_MODE = 0;
 
         public CPU(Memory memory, Ports ports)
         {
@@ -37,9 +42,82 @@ namespace OS_2.Machines
             _mmu = new MemoryManagementUnit(_memory);
         }
         
+        public void DoCycle()
+        {
+            try
+            {
+                ReadInstruction();
+                ParseInstruction();
+                ExecuteInstruction();
+            }
+            catch (HaltException)
+            {
+                if (IsRealMode()) throw;
+                _executionUnit.INTR = (byte) InterruptCode.HaltException;
+            }
+            catch (PageException)
+            {
+                if (IsRealMode()) throw;
+                _executionUnit.INTR = (byte) InterruptCode.PageException;
+            }
+
+            if (_executionUnit.INTR > 0)
+            {
+                HandleInterrupt(_executionUnit.INTR);
+                _executionUnit.INTR = 0;
+            }
+
+            if (InterruptController.IRQ > 0)
+            {
+                HandleInterrupt(InterruptController.IRQ);
+                InterruptController.IRQ = 0;   
+            }
+        }
+        
+        private void ParseInstruction()
+        {
+            _controlUnit.ParseInstruction();
+        }
+
+        private void ReadInstruction()
+        {
+            _controlUnit.ReadInstruction(GetMemBytesAccessFunc(Constants.INSTRUCTION__LENGTH));
+        }
+
+        private void ExecuteInstruction()
+        {
+            _executionUnit.ExecuteInstruction(ConstructContext());
+        }
+
+        private void HandleInterrupt(byte interruptCode)
+        {
+            var offset = interruptCode * Constants.WORD_LENGTH;
+            _executionUnit.Push((int)_executionUnit.ALU.Flags, GetMemWriteFunc());
+            _executionUnit.Jump(_executionUnit.IDT + offset, (address) => _controlUnit.PC = address);
+        }
+
+        private bool IsRealMode() => _executionUnit.CR0 == 0;
+        
+        private InstructionExecutionContext ConstructContext()
+        {
+            return new InstructionExecutionContext()
+            {
+                Opcode = _controlUnit.Opcode,
+                Operand = _controlUnit.Operand,
+                MemRead = GetMemReadFunc(),
+                MemWrite = GetMemWriteFunc(),
+                PortRead = (port) => _ports.ReadFromPort(port),
+                PortWrite = (port, value) => _ports.WriteToPort(port, unchecked((byte)value)),
+                RegRead = GetRegReadFunc(),
+                RegWrite = GetRegWriteFunc(),
+                PCWrite = (address) => _controlUnit.PC = address,
+                PCRead = () => _controlUnit.PC
+            };
+        }
+
         private Func<int, int> GetMemReadFunc()
         {
-            if (_executionUnit.CR0 == REAL_MODE)
+            if (IsRealMode())
             {
                 return (realAddress) =>_memory[realAddress.ToUshort()];
             }
@@ -54,7 +132,7 @@ namespace OS_2.Machines
         
         private Action<int, int> GetMemWriteFunc()
         {
-            if (_executionUnit.CR0 == REAL_MODE)
+            if (IsRealMode())
             {
                 return (realAddress, value) =>_memory[realAddress.ToUshort()] = value;
             }
@@ -69,7 +147,7 @@ namespace OS_2.Machines
         
         private Func<int, int> GetRegReadFunc()
         {
-            if (_executionUnit.CR0 == REAL_MODE)
+            if (IsRealMode())
             {
                 return (realRegister) =>
                 {
@@ -90,7 +168,7 @@ namespace OS_2.Machines
                         case RealRegister.PT:
                             return _mmu.PT;
                         default:
-                            throw new Exception("invalid read of real register");
+                            throw new RegisterAccessException("invalid read of real register");
                     }
                 };
             }
@@ -108,14 +186,14 @@ namespace OS_2.Machines
                         return (int)_executionUnit.ALU.Flags;
 
                     default:
-                        throw new Exception("invalid read of protected register");
+                        throw new RegisterAccessException("invalid read of protected register");
                 }
             };
         }
         
         private Action<int, int> GetRegWriteFunc()
         {
-            if (_executionUnit.CR0 == REAL_MODE)
+            if (IsRealMode())
             {
                 return (realRegister, value) =>
                 {
@@ -143,7 +221,7 @@ namespace OS_2.Machines
                             _mmu.PT = value;
                             break;
                         default:
-                            throw new Exception("invalid write to real register");
+                            throw new RegisterAccessException("invalid write to real register");
                     }
                 };
             }
@@ -163,14 +241,14 @@ namespace OS_2.Machines
                         _executionUnit.ALU.Flags = (Flags)value;
                         break;
                     default:
-                        throw new Exception("invalid write to protected register");
+                        throw new RegisterAccessException("invalid write to protected register");
                 }
             };
         }
         
         private Func<int, byte[]> GetMemBytesAccessFunc(int byteCount)
         {
-            if (_executionUnit.CR0 == REAL_MODE)
+            if (IsRealMode())
             {
                 return (realAddress) => _memory.Read(realAddress, byteCount);
             }
@@ -182,46 +260,7 @@ namespace OS_2.Machines
                 return _memory.Read(realAddress, byteCount);
             };
         }
-
-        private void ParseInstruction()
-        {
-            _controlUnit.ParseInstruction();
-        }
-
-        private void ReadInstruction()
-        {
-            _controlUnit.ReadInstruction(GetMemBytesAccessFunc(Constants.INSTRUCTION__LENGTH));
-        }
-
-        private void ExecuteInstruction()
-        {
-            // TODO: implement exception handling
-            _executionUnit.ExecuteInstruction(ConstructContext());
-            // TODO: implement interrupt handling
-        }
-
-        private InstructionExecutionContext ConstructContext()
-        {
-            return new InstructionExecutionContext()
-            {
-                Opcode = _controlUnit.Opcode,
-                Operand = _controlUnit.Operand,
-                MemRead = GetMemReadFunc(),
-                MemWrite = GetMemWriteFunc(),
-                PortRead = (port) => _ports.ReadFromPort(port),
-                PortWrite = (port, value) => _ports.WriteToPort(port, unchecked((byte)value)),
-                RegRead = GetRegReadFunc(),
-                RegWrite = GetRegWriteFunc(),
-                PCWrite = (address) => _controlUnit.PC = address,
-                PCRead = () => _controlUnit.PC
-            };
-        }
-
-        public void DoCycle()
-        {
-            ReadInstruction();
-            ParseInstruction();
-            ExecuteInstruction();
-        }
+        
+        
     }
 }

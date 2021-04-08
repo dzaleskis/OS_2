@@ -1,5 +1,6 @@
 ﻿using System;
 using OS_2.Concepts;
+using OS_2.Exceptions;
 using OS_2.Utils;
 
 namespace OS_2.Modules
@@ -26,7 +27,7 @@ namespace OS_2.Modules
             {
                 // need to specify which virtual address failed translation
                 CR1 = virtualAddress;
-                throw new ArgumentException("Page not in table");
+                throw new PageException("Page not in table");
             }
             return realPageAddress + offset;
         }

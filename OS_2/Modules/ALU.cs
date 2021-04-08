@@ -1,5 +1,6 @@
 ﻿using System;
 using OS_2.Concepts;
+using OS_2.Exceptions;
 using OS_2.Utils;
 
 namespace OS_2.Modules
@@ -121,7 +122,7 @@ namespace OS_2.Modules
                     result = (ushort)(instruction.A.ToUshort() ^ instruction.B.ToUshort());
                     break;
                 default:
-                    throw new Exception("Unrecognized opcode");
+                    throw new OperationException("Unrecognized opcode");
             }
             
             SetFlags(instruction, result);
@@ -139,7 +140,7 @@ namespace OS_2.Modules
                     result = (ushort)(~instruction.A.ToUshort());
                     break;
                 default:
-                    throw new Exception("Unrecognized opcode");
+                    throw new OperationException("Unrecognized opcode");
             }
             
             SetFlags(instruction, result);
