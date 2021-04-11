@@ -1,5 +1,8 @@
+using System;
 using System.Collections.Generic;
+using System.Text;
 using Assembler;
+using Newtonsoft.Json;
 using NUnit.Framework;
 using OS_2.Concepts;
 
@@ -12,47 +15,65 @@ namespace OS_2.Tests.Assembler
         {
             var notAssembled = new NotAssembledProgram()
             {
-                Variables = new List<StaticVariable>()
+                Variables = new List<NotAssembledVariable>()
                 {
-                    new StaticVariable(){ Name = "var1", Value = 1 },
-                    new StaticVariable(){ Name = "var2", Value = 500 },
-                    new StaticVariable(){ Name = "var3", Value = 5500 },
+                    new NotAssembledVariable("var1",  1),
+                    new NotAssembledVariable("var2", 500),
+                    new NotAssembledVariable("var3",5500),
                 },
                 Instructions = new List<NotAssembledInstruction>()
                 {
-                    new NotAssembledInstruction(){ Name = "ADD", Operand = null },
-                    new NotAssembledInstruction(){ Name = "LOD", Operand = "var2" },
-                    new NotAssembledInstruction(){ Name = "POP", Operand = null },
-                    new NotAssembledInstruction(){ Name = "STO", Operand = "var3" },
-                    new NotAssembledInstruction(){ Name = "SUB", Operand = "551" },
+                    new NotAssembledInstruction("ADD"),
+                    new NotAssembledInstruction("LOD", "var2"),
+                    new NotAssembledInstruction("POP"),
+                    new NotAssembledInstruction("STO", "var3"),
+                    new NotAssembledInstruction("SUB", "551"),
+                }
+            };
+
+            var expected = new AssembledProgram()
+            {
+                AssembledInstructions = new List<AssembledInstruction>()
+                {
+                    new AssembledInstruction(Opcode.ADD),
+                    new AssembledInstruction(Opcode.LOD, 2),
+                    new AssembledInstruction(Opcode.POP),
+                    new AssembledInstruction(Opcode.STO, 4),
+                    new AssembledInstruction(Opcode.SUB)
+                },
+                AssembledVariables = new List<AssembledVariable>()
+                {
+                    new AssembledVariable(1),
+                    new AssembledVariable(500),
+                    new AssembledVariable(5500),
                 }
             };
 
             var assembled = OSAssembler.Assemble(notAssembled);
-            
-            Assert.That(assembled.AssembledVariables.Count == notAssembled.Variables.Count);
+            Assert.That(JsonConvert.SerializeObject(assembled.AssembledInstructions), Is.EqualTo(JsonConvert.SerializeObject(expected.AssembledInstructions)));
+            Assert.That(JsonConvert.SerializeObject(assembled.AssembledVariables), Is.EqualTo(JsonConvert.SerializeObject(expected.AssembledVariables)));
+        }
 
-            for(int i = 0; i < notAssembled.Variables.Count; i++)
+        [Test]
+        public void SerializesProgramCorrectly()
+        {
+            var assembledProgram = new AssembledProgram()
             {
-                Assert.That(assembled.AssembledVariables[i].Value == notAssembled.Variables[i].Value);
-            }
+                AssembledInstructions = new List<AssembledInstruction>()
+                {
+                    new AssembledInstruction(Opcode.ADD),
+                    new AssembledInstruction(Opcode.SUB),
+                    new AssembledInstruction(Opcode.HALT)
+                },
+                AssembledVariables = new List<AssembledVariable>()
+                {
+                    new AssembledVariable(5)
+                }
+            };
+            SerializedProgram serialized = SerializedProgram.FromAssembledProgram(assembledProgram);
             
-            Assert.That(assembled.AssembledInstructions.Count == notAssembled.Instructions.Count);
-            
-            Assert.That(assembled.AssembledInstructions[0].Opcode == Opcode.ADD);
-            Assert.That(assembled.AssembledInstructions[0].Operand == 0);
-            
-            Assert.That(assembled.AssembledInstructions[1].Opcode == Opcode.LOD);
-            Assert.That(assembled.AssembledInstructions[1].Operand == 2);
-            
-            Assert.That(assembled.AssembledInstructions[2].Opcode == Opcode.POP);
-            Assert.That(assembled.AssembledInstructions[2].Operand == 0);
-            
-            Assert.That(assembled.AssembledInstructions[3].Opcode == Opcode.STO);
-            Assert.That(assembled.AssembledInstructions[3].Operand == 4);
-            
-            Assert.That(assembled.AssembledInstructions[4].Opcode == Opcode.SUB);
-            Assert.That(assembled.AssembledInstructions[4].Operand == 0);
+            Assert.AreEqual(serialized.GetInstructionsAsBytes(), new byte[] {1, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0});
+            Assert.AreEqual(serialized.GetVariablesAsBytes(), new byte[] {5, 0});
         }
     }
 }

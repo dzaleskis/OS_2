@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 
 namespace OS_2.Utils
 {
@@ -42,6 +43,11 @@ namespace OS_2.Utils
         public static short ToShort(this int i)
         {
             return Convert.ToInt16(i);
+        }
+        
+        public static string Serialize(this short i)
+        {
+            return Encoding.ASCII.GetString(BitConverter.GetBytes((i)));
         }
         
     }

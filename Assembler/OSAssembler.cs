@@ -9,8 +9,12 @@ namespace Assembler
 {
     public static class OSAssembler
     {
-        private class ExtendedVariable : StaticVariable
+        private class ExtendedVariable : NotAssembledVariable
         {
+            public ExtendedVariable(string name, int value, int offset) : base(name, value)
+            {
+                Offset = offset;
+            }
             public int Offset { get; set; }
         }
 
@@ -113,11 +117,7 @@ namespace Assembler
                     throw new Exception("unsupported instruction operand type");
             }
 
-            return new AssembledInstruction()
-            {
-                Opcode = opcode,
-                Operand = operand
-            };
+            return new AssembledInstruction(opcode, operand);
         }
 
         public static AssembledProgram Assemble(NotAssembledProgram notAssembledProgram)
@@ -125,20 +125,14 @@ namespace Assembler
             // need to map all instructions that use variables to the corresponding values/addresses
           
             List<ExtendedVariable> extendedVariables =
-                notAssembledProgram.Variables.Select((v, i) => new ExtendedVariable()
-                {
-                    Name = v.Name,
-                    Offset = i * Constants.WORD_LENGTH,
-                    Value = v.Value
-                }).ToList();
+                notAssembledProgram.Variables.Select(
+                    (v, i) => new ExtendedVariable(v.Name, v.Value, i * Constants.WORD_LENGTH)
+                ).ToList();
 
             List<AssembledInstruction> assembledInstructions = notAssembledProgram.Instructions
                 .Select(instr => AssembleInstruction(instr, extendedVariables)).ToList();
             
-            var assembledVariables = extendedVariables.Select(ev => new AssembledVariable()
-            {
-                Value = ev.Value
-            }).ToList();
+            var assembledVariables = extendedVariables.Select(ev => new AssembledVariable(ev.Value)).ToList();
 
             return new AssembledProgram()
             {

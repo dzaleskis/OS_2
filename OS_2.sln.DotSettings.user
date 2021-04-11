@@ -8,6 +8,11 @@
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=ce7cb3de_002Dcd8e_002D449b_002D8f0d_002Da5ee3e4d497a/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="All tests from &amp;lt;OS_2.Tests&amp;gt;" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;Project Location="C:\Users\deividas.zaleskis\uni\OS\OS_2\OS_2.Tests" Presentation="&amp;lt;OS_2.Tests&amp;gt;" /&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=d683e9c6_002Daab2_002D4ee8_002D8936_002D2b75da8a325a/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="SerializesProgramCorrectly" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::25633803-E0DD-47BC-ADA2-F6307B748F18::.NETCoreApp,Version=v3.1::OS_2.Tests.Assembler.AssemblerTests.SerializesProgramCorrectly&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=fe724f2a_002D8144_002D47b0_002D98bc_002D75f34d4625a4/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="All tests from Solution" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;Solution /&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
