@@ -25,9 +25,6 @@ namespace OS_2.Modules
             switch (context.Opcode)
             {
                 case Opcode.HALT:
-                    // if in protected mode, switch to real mode and continue execution?
-                    // if in real mode, stop execution
-                    // probably easiest to throw an exception and determine how to handle it in CPU
                     throw new HaltException();
                 case Opcode.ADD:
                 case Opcode.SUB:
@@ -169,8 +166,15 @@ namespace OS_2.Modules
                     var portValue = context.PortRead(context.Operand);
                     Push(portValue, context.MemWrite);
                     break;
+                case Opcode.INBE:
+                    var stackPortValue = context.PortRead(stackTop);
+                    Push(stackPortValue, context.MemWrite);
+                    break;
                 case Opcode.OUTB:
                     context.PortWrite(context.Operand, stackTop);
+                    break;
+                case Opcode.OUTBE:
+                    context.PortWrite(stackTop2, stackTop);
                     break;
                 default:
                     throw new ArgumentException("invalid opcode");

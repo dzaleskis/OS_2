@@ -40,7 +40,9 @@ namespace OS_2.Concepts
         POPR,
         PUSHR,
         INB,
-        OUTB
+        INBE,
+        OUTB,
+        OUTBE
     }
 
     public class Instruction
